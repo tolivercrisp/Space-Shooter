@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyPrefab;
     [SerializeField]
-    private float _speed = 2.0f;
+    private float _speed;
   
 
 
@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _speed = Random.Range(1.0f, 3.0f);
         transform.position = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(11.0f, 15.0f), 0);
     }
 
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Move enemy down at 4 meters/s
+        //Move enemy down at range of 1-3 meters/s
         transform.Translate(Vector3.down * Time.deltaTime * _speed);
 
         //if bottom of screen
