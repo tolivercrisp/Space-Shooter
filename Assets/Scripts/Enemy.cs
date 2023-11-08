@@ -9,9 +9,6 @@ public class Enemy : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private float _speed;
-  
-
-
 
 
     // Start is called before the first frame update
@@ -35,7 +32,7 @@ public class Enemy : MonoBehaviour
         {
             float randomX = Random.Range(-13.0f, 13.0f);
             transform.position = new Vector3(randomX, 7, 0);
-        }
+        } 
     }
 
     private void OnTriggerEnter(Collider other)

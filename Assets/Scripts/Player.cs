@@ -21,7 +21,15 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private int _lives = 3;
+
     private SpawnManager _spawnManager;
+
+    private Background _Background;
+    // negative so it moves opposite player movement
+    [SerializeField]
+    private float _bgHorizontalSpeed = -0.5f;
+    [SerializeField]
+    private float _bgVerticalSpeed = 0.5f;
 
 
     // Start is called before the first frame update -----------------------------------------
@@ -49,8 +57,16 @@ public class Player : MonoBehaviour
         {
             FireLaser();
         }
-          
 
+        // import the Background object
+        _Background = GameObject.Find("Background").GetComponent<Background>();
+        // access transform position
+        float horizontalInput = Input.GetAxis("Horizontal");
+        _Background.transform.Translate(Vector3.right * horizontalInput * _bgHorizontalSpeed * Time.deltaTime);
+        float verticalInput = Input.GetAxis("Vertical");
+        _Background.transform.Translate(Vector3.up * verticalInput * _bgVerticalSpeed * Time.deltaTime);
+
+        // HEY! Eventually the player will scoot themselves off the map bc of sideways movement
 
 
     }
@@ -61,6 +77,7 @@ public class Player : MonoBehaviour
         // Press either A or D, move Player left and right at "speed" variable value
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * horizontalInput * _speed * Time.deltaTime);
+
 
         // Press either W or A, move Player up and down at "speed" variable value
         float verticalInput = Input.GetAxis("Vertical");

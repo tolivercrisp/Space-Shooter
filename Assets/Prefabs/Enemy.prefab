@@ -108,7 +108,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyPrefab: {fileID: 4829121881795921413}
-  _speed: 3
+  _speed: 1
+  _xRotation: 0
+  _yRotation: 0
 --- !u!54 &-1255960762891573636
 Rigidbody:
   m_ObjectHideFlags: 0
