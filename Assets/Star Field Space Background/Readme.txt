@@ -1,0 +1,1 @@
+This texture is a 4096x4096 tiling PNG, suitable for 2D game backgrounds or for use in skyboxes or skydomes.
