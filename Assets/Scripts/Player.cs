@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
     private float _bgVerticalSpeed = 0.5f;
 
     // bool variable for isTripleShotActive
-    [SerializeField]
-    private bool _isTripleShotActive = false;
+    public bool _isTripleShotActive = false;
 
     // Import Prefabs
     [SerializeField]
