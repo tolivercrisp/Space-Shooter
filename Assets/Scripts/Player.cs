@@ -12,8 +12,6 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _speed = 14.0f;
-    [SerializeField]
-    private GameObject _laserPrefab;
     // Laser Shooting
     [SerializeField]
     private float _fireRate = 0.001f;
@@ -21,15 +19,26 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private int _lives = 3;
-
-    private SpawnManager _spawnManager;
-
-    private Background _Background;
-    // negative so it moves opposite player movement
     [SerializeField]
     private float _bgHorizontalSpeed = -0.5f;
     [SerializeField]
     private float _bgVerticalSpeed = 0.5f;
+
+    // bool variable for isTripleShotActive
+    [SerializeField]
+    private bool _isTripleShotActive = false;
+
+    // Import Prefabs
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
+
+
+    // Import Objects
+    private SpawnManager _spawnManager;
+    private Background _Background;
+
 
 
     // Start is called before the first frame update -----------------------------------------
@@ -51,7 +60,7 @@ public class Player : MonoBehaviour
     {
         CalculateMovement();
 
-        // if i press space -> spawn a laser
+        // if i press mouse -> spawn a laser
         // i removed the fire rate from if statement (&& Time.time > _canFire)
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -101,10 +110,17 @@ public class Player : MonoBehaviour
 
     }
 
-    void FireLaser()
+    public void FireLaser()
     {
-       _canFire = Time.time + _fireRate;
-        Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        _canFire = Time.time + _fireRate;
+
+        if(_isTripleShotActive == true)
+        {
+            Instantiate(_tripleShotPrefab, transform.position, Quaternion.identity);
+        } else
+        {
+            Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
+        }
     }
 
     public void Damage()

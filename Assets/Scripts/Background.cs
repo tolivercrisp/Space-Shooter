@@ -7,7 +7,7 @@ public class Background : MonoBehaviour
     // Variables --
     public float scrollSpeed;
 
-    private Renderer renderer;
+    private new Renderer renderer;
     private Vector2 savedOffset;
 
     // Start is called before the first frame update
