@@ -10,11 +10,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed;
 
-
     // Start is called before the first frame update
     void Start()
     {
-        _speed = Random.Range(5.0f, 7.0f);
+        _speed = Random.Range(7.0f, 11.0f);
         transform.position = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(12.0f, 15.0f), 0);
     }
 
@@ -53,6 +52,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
+
         }
     }
 

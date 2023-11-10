@@ -240,7 +240,8 @@ MonoBehaviour:
     type: 3}
   _speedBoostPrefab: {fileID: 6865202450453465126, guid: cc5449b3c61e3d941b6850bacc333401,
     type: 3}
-  _overshieldPrefab: {fileID: 0}
+  _overshieldPrefab: {fileID: 3367546621986762590, guid: 9be52607437da714190220911c5f7f67,
+    type: 3}
   _powerupsArray:
   - {fileID: 567816520458823814, guid: 69d859311dec85e4c809c0b9b077dfcd, type: 3}
   - {fileID: 6865202450453465126, guid: cc5449b3c61e3d941b6850bacc333401, type: 3}
