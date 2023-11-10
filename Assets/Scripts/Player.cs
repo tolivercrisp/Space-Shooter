@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _speed = 15.0f;
-    [SerializeField]
-    private float _boostedSpeed;
+    private float _speedMultiplier = 1.5f;
 
     private float _fireRate = 0.001f;
     [SerializeField]
@@ -83,15 +82,7 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        // if SpeedBoost is enabled, move faster
-        if (_isSpeedBoostActive == true)
-        {
-            _boostedSpeed = _speed * 1.5f;
-            transform.Translate(direction * _boostedSpeed * Time.deltaTime);
-        } else
-        {
-            transform.Translate(direction * _speed * Time.deltaTime);
-        }
+        transform.Translate(direction * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -7.75f, 7.75f));
 
@@ -169,6 +160,7 @@ public class Player : MonoBehaviour
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
+        _speed *= _speedMultiplier;
         Debug.Log("Speed Powerup = ON (Player.cs)");
         StartCoroutine(SpeedBoostPowerDownRoutine());
     }
@@ -180,6 +172,7 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(5.0f);
             _isSpeedBoostActive = false;
+            _speed /= _speedMultiplier;
             Debug.Log("Speed Boost = OFF (Player.cs)");
         }
     }

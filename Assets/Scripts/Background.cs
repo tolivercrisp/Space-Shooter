@@ -5,7 +5,8 @@ using UnityEngine;
 public class Background : MonoBehaviour
 {
     // Variables --
-    public float scrollSpeed;
+    [SerializeField]
+    private float _scrollSpeed = 0.3f;
 
     private new Renderer renderer;
     private Vector2 savedOffset;
@@ -19,7 +20,7 @@ public class Background : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = Mathf.Repeat(Time.time * scrollSpeed, 1);
+        float x = Mathf.Repeat(Time.time * _scrollSpeed, 1);
         Vector2 offset = new Vector2(0, x);
         renderer.sharedMaterial.SetTextureOffset("_MainTex", offset);
     }
