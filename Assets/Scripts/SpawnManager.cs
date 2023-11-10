@@ -11,6 +11,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyContainer;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _speedBoostPrefab;
+    [SerializeField]
+    private int randomPowerup;
 
     private bool _stopSpawning = false;
 
@@ -39,13 +43,32 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    // Spawn a random Powerup
     IEnumerator SpawnPowerupRoutine()
     {
         while(_stopSpawning == false)
         {
             Vector3 positionToSpawn = new Vector3(Random.Range(-13.0f, 13.0f), 13.0f, 0);
-            Instantiate(_tripleShotPrefab, positionToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(12, 16));
+            randomPowerup = Random.Range(0, 2);
+            switch (randomPowerup)
+            {
+                case 0:
+                    Instantiate(_tripleShotPrefab, positionToSpawn, Quaternion.identity);
+                    yield return new WaitForSeconds(Random.Range(12, 16));
+                    break;
+                case 1:
+                    Instantiate(_speedBoostPrefab, positionToSpawn, Quaternion.identity);
+                    yield return new WaitForSeconds(Random.Range(12, 16));
+                    break;
+            //  case 2:
+                    // Instantiate(_overshieldPrefab, positionToSpawn, Quaternion.identity);
+                    // yield return new WaitForSeconds(Random.Range(12, 16));
+                    // break;
+                default:
+                    Debug.Log("Switch statement is 'default' (SpawnManager.cs)");
+                    break;
+            }
+
         }
     }
 

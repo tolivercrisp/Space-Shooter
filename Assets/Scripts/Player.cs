@@ -11,8 +11,10 @@ public class Player : MonoBehaviour
     // optional -- value assigned
 
     [SerializeField]
-    private float _speed = 20.0f;
+    private float _speed = 15.0f;
     [SerializeField]
+    private float _boostedSpeed;
+
     private float _fireRate = 0.001f;
     [SerializeField]
     private float _canFire = 0.0f;
@@ -84,8 +86,8 @@ public class Player : MonoBehaviour
         // if SpeedBoost is enabled, move faster
         if (_isSpeedBoostActive == true)
         {
-            _speed = 35.0f;
-            transform.Translate(direction * _speed * Time.deltaTime);
+            _boostedSpeed = _speed * 1.5f;
+            transform.Translate(direction * _boostedSpeed * Time.deltaTime);
         } else
         {
             transform.Translate(direction * _speed * Time.deltaTime);
@@ -153,10 +155,9 @@ public class Player : MonoBehaviour
 
     }
 
-    // IE numerator TripleShotPowerDownRoutine
     public IEnumerator TripleShotPowerDownRoutine()
     {
-        Debug.Log("TS Coroutine Started...");
+        Debug.Log("TripleShot Coroutine Started...");
         while (_isTripleShotActive == true)
         {
             yield return new WaitForSeconds(5.0f);
@@ -174,7 +175,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator SpeedBoostPowerDownRoutine()
     {
-        Debug.Log("Speed Boost Coroutine Active");
+        Debug.Log("SpeedBoost Coroutine Started...");
         while(_isSpeedBoostActive == true)
         {
             yield return new WaitForSeconds(5.0f);
