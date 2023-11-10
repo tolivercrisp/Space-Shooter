@@ -9,13 +9,16 @@ public class SpawnManager : MonoBehaviour
     private GameObject _enemyPrefab;
     [SerializeField]
     private GameObject _enemyContainer;
+    [SerializeField]
+    private GameObject _tripleShotPrefab;
 
     private bool _stopSpawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
     // Update is called once per frame
@@ -24,26 +27,26 @@ public class SpawnManager : MonoBehaviour
         
     }
 
-    //spawn game objects every 5 seconds
-    // create a coroutine of type IEnumerator -- Yield Events
-    //while loop
-
-    IEnumerator SpawnRoutine()
+    IEnumerator SpawnEnemyRoutine()
     {
         
         while (_stopSpawning == false)
         {
-            Vector3 positionToSpawn = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(-12.0f, 12.0f), 0);
+            Vector3 positionToSpawn = new Vector3(Random.Range(-13.0f, 13.0f), 13.0f, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, positionToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(1.0f);
-
+            yield return new WaitForSeconds(2.0f);
         }
+    }
 
-        
-        //while loop (infinite loop)
-            // instantiate enemy prefab
-            // yield wait for 5 seconds
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while(_stopSpawning == false)
+        {
+            Vector3 positionToSpawn = new Vector3(Random.Range(-13.0f, 13.0f), 13.0f, 0);
+            Instantiate(_tripleShotPrefab, positionToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(12, 16));
+        }
     }
 
     public void onPlayerDeath()

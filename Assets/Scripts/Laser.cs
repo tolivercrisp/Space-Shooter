@@ -14,13 +14,15 @@ public class Laser : MonoBehaviour
     {
         // if laser is spawned, it moves upwards
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
-
-        // if the laser object is outside of the screen, destroy it
-
-        // Top of the screen
         if(transform.position.y >= 20.0f)
         {
-            Destroy(gameObject);
+            
+            if(transform.parent != null)
+            {
+                //destroys TripleShot
+                Destroy(transform.parent.gameObject);
+            } 
+            Destroy(this.gameObject);
         }
       
     }

@@ -11,8 +11,7 @@ public class Player : MonoBehaviour
     // optional -- value assigned
 
     [SerializeField]
-    private float _speed = 14.0f;
-    // Laser Shooting
+    private float _speed = 20.0f;
     [SerializeField]
     private float _fireRate = 0.001f;
     [SerializeField]
@@ -24,17 +23,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _bgVerticalSpeed = 0.5f;
 
-    // bool variable for isTripleShotActive
+    // Bool variable for Powerups
     public bool _isTripleShotActive = false;
+    public bool _isSpeedBoostActive = false;
 
-    // Import Prefabs
+    // Prefabs
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
     private GameObject _tripleShotPrefab;
+    [SerializeField]
+    private GameObject _speedBoostPrefab;
 
-
-    // Import Objects
+    // Objects
     private SpawnManager _spawnManager;
     private Background _Background;
 
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        BackgroundMovement();
 
         // if i press mouse -> spawn a laser
         // i removed the fire rate from if statement (&& Time.time > _canFire)
@@ -66,15 +68,7 @@ public class Player : MonoBehaviour
             FireLaser();
         }
 
-        // import the Background object
-        _Background = GameObject.Find("Background").GetComponent<Background>();
-        // access transform position
-        float horizontalInput = Input.GetAxis("Horizontal");
-        _Background.transform.Translate(Vector3.right * horizontalInput * _bgHorizontalSpeed * Time.deltaTime);
-        float verticalInput = Input.GetAxis("Vertical");
-        _Background.transform.Translate(Vector3.up * verticalInput * _bgVerticalSpeed * Time.deltaTime);
-
-        // HEY! Eventually the player will scoot themselves off the map bc of sideways movement
+       
 
 
     }
@@ -82,20 +76,23 @@ public class Player : MonoBehaviour
     // Function for Movement code
     void CalculateMovement()
     {
-        // Press either A or D, move Player left and right at "speed" variable value
         float horizontalInput = Input.GetAxis("Horizontal");
-        transform.Translate(Vector3.right * horizontalInput * _speed * Time.deltaTime);
-
-
-        // Press either W or A, move Player up and down at "speed" variable value
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.up * verticalInput * _speed * Time.deltaTime);
 
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
 
-        // Up and Down Boundary Limits
-        // --- Math.f(Clam) is the value of a range
-        float verticalRange = Mathf.Clamp(transform.position.y, -7.75f, 7.75f);
-        transform.position = new Vector3(transform.position.x, verticalRange, 0);
+        // if SpeedBoost is enabled, move faster
+        if (_isSpeedBoostActive == true)
+        {
+            _speed = 35.0f;
+            transform.Translate(direction * _speed * Time.deltaTime);
+        } else
+        {
+            transform.Translate(direction * _speed * Time.deltaTime);
+        }
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -7.75f, 7.75f));
+
 
         // Left and Right Boundary WRAP
         if (transform.position.x >= 16.2f)
@@ -107,6 +104,19 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(16.2f, transform.position.y, 0);
         }
 
+    }
+
+    void BackgroundMovement()
+    {
+        // import the Background object
+        _Background = GameObject.Find("Background").GetComponent<Background>();
+        // access transform position
+        float horizontalInput = Input.GetAxis("Horizontal");
+        _Background.transform.Translate(Vector3.right * horizontalInput * _bgHorizontalSpeed * Time.deltaTime);
+        float verticalInput = Input.GetAxis("Vertical");
+        _Background.transform.Translate(Vector3.up * verticalInput * _bgVerticalSpeed * Time.deltaTime);
+
+        // HEY! Eventually the player will scoot themselves off the map bc of sideways 
     }
 
     public void FireLaser()
@@ -137,10 +147,8 @@ public class Player : MonoBehaviour
 
     public void TripleShotActive()
     {
-        // tripleShotActive becomes true
         _isTripleShotActive = true;
         Debug.Log("TripleShot = ON (Player.cs)");
-        // start powerDown Coroutine for triple shot
         StartCoroutine(TripleShotPowerDownRoutine());
 
     }
@@ -156,5 +164,22 @@ public class Player : MonoBehaviour
             Debug.Log("TripleShot = OFF (Player.cs");
         }
     }
-    // wait 5 seconds set the triple shot to false
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        Debug.Log("Speed Powerup = ON (Player.cs)");
+        StartCoroutine(SpeedBoostPowerDownRoutine());
+    }
+
+    public IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        Debug.Log("Speed Boost Coroutine Active");
+        while(_isSpeedBoostActive == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isSpeedBoostActive = false;
+            Debug.Log("Speed Boost = OFF (Player.cs)");
+        }
+    }
 }
