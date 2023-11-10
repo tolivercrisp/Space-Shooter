@@ -21,8 +21,8 @@ public class Powerup : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // move down at a speed of 3
-        transform.Translate(Vector3.down * Time.deltaTime * _speed);
+        // move down at a speed of 3m/s
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
         // when we leave the screen, destroy this object
         if (transform.position.y <= -13.0f)
         {
@@ -34,10 +34,10 @@ public class Powerup : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            Player player = other.transform.GetComponent<Player>();
-            player._isTripleShotActive = true;
             Destroy(gameObject);
+            Player player = other.GetComponent<Player>();
+            player.TripleShotActive();
         }
-
     }
+
 }

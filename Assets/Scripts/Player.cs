@@ -134,4 +134,27 @@ public class Player : MonoBehaviour
        
         }
     }
+
+    public void TripleShotActive()
+    {
+        // tripleShotActive becomes true
+        _isTripleShotActive = true;
+        Debug.Log("TripleShot = ON (Player.cs)");
+        // start powerDown Coroutine for triple shot
+        StartCoroutine(TripleShotPowerDownRoutine());
+
+    }
+
+    // IE numerator TripleShotPowerDownRoutine
+    public IEnumerator TripleShotPowerDownRoutine()
+    {
+        Debug.Log("TS Coroutine Started...");
+        while (_isTripleShotActive == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isTripleShotActive = false;
+            Debug.Log("TripleShot = OFF (Player.cs");
+        }
+    }
+    // wait 5 seconds set the triple shot to false
 }
