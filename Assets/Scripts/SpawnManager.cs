@@ -14,6 +14,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _speedBoostPrefab;
     [SerializeField]
+    private GameObject _overshieldPrefab;
+    [SerializeField]
     private GameObject[] _powerupsArray;
 
     private int randomPowerup;
@@ -52,7 +54,7 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 positionToSpawn = new Vector3(Random.Range(-13.0f, 13.0f), 13.0f, 0);
             int randomPowerup = Random.Range(0, 2);
-            Instantiate(_powerupsArray[randomPowerup], positionToSpawn, Quaternion.identity);
+            Instantiate(_powerupsArray[2], positionToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(12, 16));
 
         }

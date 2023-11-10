@@ -47,7 +47,7 @@ public class Powerup : MonoBehaviour
                         Debug.Log("Picked up SPEED BOOST!");
                         break;
                     case 2:
-                        // player.OvershieldActive();
+                        player.OvershieldActive();
                         Debug.Log("Picked up OVERSHIELD!");
                         break;
                     default:

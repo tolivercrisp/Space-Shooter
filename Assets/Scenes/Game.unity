@@ -240,10 +240,11 @@ MonoBehaviour:
     type: 3}
   _speedBoostPrefab: {fileID: 6865202450453465126, guid: cc5449b3c61e3d941b6850bacc333401,
     type: 3}
+  _overshieldPrefab: {fileID: 0}
   _powerupsArray:
   - {fileID: 567816520458823814, guid: 69d859311dec85e4c809c0b9b077dfcd, type: 3}
   - {fileID: 6865202450453465126, guid: cc5449b3c61e3d941b6850bacc333401, type: 3}
-  - {fileID: 0}
+  - {fileID: 3367546621986762590, guid: 9be52607437da714190220911c5f7f67, type: 3}
 --- !u!4 &1529654900
 Transform:
   m_ObjectHideFlags: 0
@@ -328,11 +329,14 @@ MonoBehaviour:
   _bgVerticalSpeed: -1
   _isTripleShotActive: 0
   _isSpeedBoostActive: 0
+  _isOvershieldActive: 0
   _laserPrefab: {fileID: 1969403927034880029, guid: 2a4932d6a9f7a40489be905eafe9dec9,
     type: 3}
   _tripleShotPrefab: {fileID: 2223736419996541413, guid: 7207a3ebe1cea2240a2fa12e064753a9,
     type: 3}
   _speedBoostPrefab: {fileID: 0}
+  _overshieldPrefab: {fileID: 7050820579182278587, guid: 29783a892ee3b84408b28327419678c9,
+    type: 3}
 --- !u!212 &1842443923
 SpriteRenderer:
   m_ObjectHideFlags: 0

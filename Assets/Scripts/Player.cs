@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     // Bool variable for Powerups
     public bool _isTripleShotActive = false;
     public bool _isSpeedBoostActive = false;
+    public bool _isOvershieldActive = false;
 
     // Prefabs
     [SerializeField]
@@ -35,6 +36,8 @@ public class Player : MonoBehaviour
     private GameObject _tripleShotPrefab;
     [SerializeField]
     private GameObject _speedBoostPrefab;
+    [SerializeField]
+    private GameObject _overshieldPrefab;
 
     // Objects
     private SpawnManager _spawnManager;
@@ -127,17 +130,22 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        _lives--;
+        if(transform.childCount < 1)
+        {
+            _lives--;
+            Debug.Log("Remaining Lives: " + _lives);
+        }
 
         if(_lives < 1)
         {
             _spawnManager.onPlayerDeath();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             Debug.Log("Game Over! [Player.cs script]");
        
         }
     }
 
+    // TripleShot
     public void TripleShotActive()
     {
         _isTripleShotActive = true;
@@ -148,15 +156,14 @@ public class Player : MonoBehaviour
 
     public IEnumerator TripleShotPowerDownRoutine()
     {
-        Debug.Log("TripleShot Coroutine Started...");
         while (_isTripleShotActive == true)
         {
             yield return new WaitForSeconds(5.0f);
             _isTripleShotActive = false;
-            Debug.Log("TripleShot = OFF (Player.cs");
         }
     }
 
+    //SpeedBoost
     public void SpeedBoostActive()
     {
         _isSpeedBoostActive = true;
@@ -167,13 +174,33 @@ public class Player : MonoBehaviour
 
     public IEnumerator SpeedBoostPowerDownRoutine()
     {
-        Debug.Log("SpeedBoost Coroutine Started...");
         while(_isSpeedBoostActive == true)
         {
             yield return new WaitForSeconds(5.0f);
             _isSpeedBoostActive = false;
             _speed /= _speedMultiplier;
-            Debug.Log("Speed Boost = OFF (Player.cs)");
         }
     }
+
+    // Overshield
+    public void OvershieldActive()
+    {
+        _isOvershieldActive = true;
+        // if we get the power up, make the Player the parent of OvershieldBubble
+        GameObject newShield = Instantiate(_overshieldPrefab, transform.position, Quaternion.identity);
+        newShield.transform.parent = transform;
+        StartCoroutine(OvershieldPowerDownRoutine());
+    }
+
+    public IEnumerator OvershieldPowerDownRoutine()
+    {
+        while(_isOvershieldActive == true)
+        {
+            yield return new WaitForSeconds(5.0f);
+            _isOvershieldActive = false;
+            Destroy(transform.GetChild(0).gameObject);
+        }
+    }
+
+
 }
