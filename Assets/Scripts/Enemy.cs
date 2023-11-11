@@ -10,11 +10,16 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float _speed;
 
+    // Handle (references another object, stores it, better performance)
+    private Player _player;
+
     // Start is called before the first frame update
     void Start()
     {
         _speed = Random.Range(7.0f, 11.0f);
         transform.position = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(12.0f, 15.0f), 0);
+
+        _player = GameObject.Find("Player").GetComponent<Player>();
     }
 
 
@@ -51,6 +56,11 @@ public class Enemy : MonoBehaviour
         if(other.tag == "Laser")
         {
             Destroy(other.gameObject);
+            // Add 10,000 to score
+            if(_player != null)
+            {
+                _player.AddScore(10000);
+            }
             Destroy(this.gameObject);
 
         }

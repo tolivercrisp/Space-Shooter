@@ -43,6 +43,15 @@ public class Player : MonoBehaviour
     private SpawnManager _spawnManager;
     private Background _Background;
 
+    // UI
+    [SerializeField]
+    private int _score;
+
+    // // Handle (stores the reference for another object, better performance,
+    // not calling "GetComponent" all the time))
+    private UIManager _uiManager;
+
+
 
 
     // Start is called before the first frame update -----------------------------------------
@@ -51,11 +60,16 @@ public class Player : MonoBehaviour
         // take the current position --> assign new position (0, 0, 0)
         transform.position = new Vector3(0, -4.0f, 0);
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if(_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is NULL (See 'Player' Script...");
 
+        }
+        if(_uiManager == null)
+        {
+            Debug.LogError("UI Manager is null! (Player.cs)");
         }
     }
 
@@ -201,6 +215,15 @@ public class Player : MonoBehaviour
             Destroy(transform.GetChild(0).gameObject);
         }
     }
+
+    public void AddScore(int points)
+    {
+        _score += points;
+        _uiManager.UpdateScore(_score);
+    }
+
+    // method to add 10 to the score!
+    // Communicate with the UI to update the score! (update in UIManager.cs)
 
 
 }
