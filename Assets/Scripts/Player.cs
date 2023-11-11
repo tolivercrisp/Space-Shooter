@@ -150,7 +150,9 @@ public class Player : MonoBehaviour
             Debug.Log("Remaining Lives: " + _lives);
         }
 
-        if(_lives < 1)
+        _uiManager.UpdateLives(_lives);
+
+        if (_lives < 1)
         {
             _spawnManager.onPlayerDeath();
             Destroy(gameObject);

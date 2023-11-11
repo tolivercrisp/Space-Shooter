@@ -10,6 +10,17 @@ public class UIManager : MonoBehaviour
     private Text _scoreText;
     private bool _playerScored = false;
 
+    // Lives Left UI
+    [SerializeField]
+    private Image _LivesImg;
+    [SerializeField]
+    private Sprite[] _livesSprites;
+    [SerializeField]
+    private Text _gameOverText;
+    [SerializeField]
+    private Text _restartText;
+
+    private GameManager _gameManager;
 
 
 
@@ -18,7 +29,15 @@ public class UIManager : MonoBehaviour
     {
         // Assign text component to the handle
         _scoreText.text = "";
-        
+        _gameOverText.gameObject.SetActive(false);
+        _restartText.gameObject.SetActive(false);
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        if (_gameManager == null)
+        {
+            Debug.LogError("GameManager is NULL.");
+        }
+
     }
 
     public void UpdateScore(int playerScore)
@@ -34,11 +53,28 @@ public class UIManager : MonoBehaviour
         while(_playerScored == true)
         {
             _scoreText.color = Color.green;
-            _scoreText.fontSize = 25;
+            _scoreText.fontSize = 30;
             yield return new WaitForSeconds(0.2f);
             _playerScored = false;
             _scoreText.color = Color.yellow;
-            _scoreText.fontSize = 20;
+            _scoreText.fontSize = 25;
         }
+    }
+
+    public void UpdateLives(int currentLives) 
+    {
+        _LivesImg.sprite = _livesSprites[currentLives];
+        if(currentLives == 0)
+        {
+            GameOverSequence();
+        }
+    }
+
+    void GameOverSequence()
+    {
+        _gameManager.GameOver();
+        _gameOverText.gameObject.SetActive(true);
+        _restartText.gameObject.SetActive(true);
+
     }
 }
