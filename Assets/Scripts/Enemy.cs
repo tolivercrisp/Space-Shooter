@@ -13,6 +13,9 @@ public class Enemy : MonoBehaviour
     // Handle (references another object, stores it, better performance)
     private Player _player;
 
+    // Animator handle
+    private Animator _anim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,16 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(12.0f, 15.0f), 0);
 
         _player = GameObject.Find("Player").GetComponent<Player>();
+        if (_player == null)
+        {
+            Debug.LogError("Player is NULL");
+        }
+
+        _anim = GetComponent<Animator>();
+        if (_anim == null)
+        {
+            Debug.LogError("Animator is NULL");
+        }
     }
 
 
@@ -49,8 +62,9 @@ public class Enemy : MonoBehaviour
             {
                 player.Damage();
             }
-
-            Destroy(this.gameObject);
+            _anim.SetTrigger("OnEnemyDeath");
+            _speed = 0;
+            Destroy(this.gameObject, 1.2f);
         }
 
         if(other.tag == "Laser")
@@ -61,9 +75,13 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddScore(10000);
             }
-            Destroy(this.gameObject);
+            GetComponent<BoxCollider2D>().enabled = false;
+            _anim.SetTrigger("OnEnemyDeath");
+            Destroy(this.gameObject, 1.2f);
 
         }
+
+        
     }
 
 

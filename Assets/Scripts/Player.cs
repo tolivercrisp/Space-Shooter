@@ -19,10 +19,6 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private int _lives = 3;
-    [SerializeField]
-    private float _bgHorizontalSpeed = -0.5f;
-    [SerializeField]
-    private float _bgVerticalSpeed = 0.5f;
 
     // Bool variable for Powerups
     public bool _isTripleShotActive = false;
@@ -77,18 +73,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
-        BackgroundMovement();
-
-        // if i press mouse -> spawn a laser
-        // i removed the fire rate from if statement (&& Time.time > _canFire)
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             FireLaser();
         }
-
-       
-
-
     }
 
     // Function for Movement code
@@ -114,19 +102,6 @@ public class Player : MonoBehaviour
             transform.position = new Vector3(16.2f, transform.position.y, 0);
         }
 
-    }
-
-    void BackgroundMovement()
-    {
-        // import the Background object
-        _Background = GameObject.Find("Background").GetComponent<Background>();
-        // access transform position
-        float horizontalInput = Input.GetAxis("Horizontal");
-        _Background.transform.Translate(Vector3.right * horizontalInput * _bgHorizontalSpeed * Time.deltaTime);
-        float verticalInput = Input.GetAxis("Vertical");
-        _Background.transform.Translate(Vector3.up * verticalInput * _bgVerticalSpeed * Time.deltaTime);
-
-        // HEY! Eventually the player will scoot themselves off the map bc of sideways 
     }
 
     public void FireLaser()
