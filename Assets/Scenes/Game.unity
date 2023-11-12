@@ -121,75 +121,81 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &867151706
+--- !u!1001 &352984976
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: -7209299499144875119, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
+        type: 3}
+      propertyPath: _explosionPrefab
+      value: 
+      objectReference: {fileID: 8947319431983373582, guid: aa8d960f0bf21494aa4e91b8e6b90242,
+        type: 3}
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.57
+      value: 0.58465576
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.59
+      value: 7.556324
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1828174762420214277, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 2528649150230078672, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4829121881795921413, guid: e67f85c38214eb54dbbf5f8fa35ef2a4,
+    - target: {fileID: 8504156931488013465, guid: df6b8cae11918fe4cbc2398e33c0dc8e,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Asteroid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e67f85c38214eb54dbbf5f8fa35ef2a4, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: df6b8cae11918fe4cbc2398e33c0dc8e, type: 3}
 --- !u!1 &1084910088
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,8 +865,6 @@ MonoBehaviour:
   _speed: 15
   _canFire: 0
   _lives: 3
-  _bgHorizontalSpeed: -2
-  _bgVerticalSpeed: -1
   _isTripleShotActive: 0
   _isSpeedBoostActive: 0
   _isOvershieldActive: 0
