@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private float _speed = 15.0f;
+    [SerializeField]
     private float _speedMultiplier = 1.5f;
 
     private float _fireRate = 0.001f;
@@ -34,6 +35,10 @@ public class Player : MonoBehaviour
     private GameObject _speedBoostPrefab;
     [SerializeField]
     private GameObject _overshieldPrefab;
+    [SerializeField]
+    private GameObject _leftEngine;
+    [SerializeField]
+    private GameObject _rightEngine;
 
     // Objects
     private SpawnManager _spawnManager;
@@ -58,15 +63,18 @@ public class Player : MonoBehaviour
         _spawnManager = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         _uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
-        if(_spawnManager == null)
+        if (_spawnManager == null)
         {
             Debug.LogError("Spawn Manager is NULL (See 'Player' Script...");
 
         }
-        if(_uiManager == null)
+        if (_uiManager == null)
         {
             Debug.LogError("UI Manager is null! (Player.cs)");
         }
+
+        _leftEngine.SetActive(false);
+        _rightEngine.SetActive(false);
     }
 
     // Update is called once per frame -------------------------------------------------------
@@ -90,7 +98,6 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
 
         transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -7.75f, 7.75f));
-
 
         // Left and Right Boundary WRAP
         if (transform.position.x >= 16.2f)
@@ -119,10 +126,18 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if(transform.childCount < 1)
+        if(transform.childCount == 3)
         {
             _lives--;
             Debug.Log("Remaining Lives: " + _lives);
+        }
+
+        if(_lives == 2)
+        {
+            _leftEngine.SetActive(true);
+        } else if (_lives == 1)
+        {
+            _rightEngine.SetActive(true);
         }
 
         _uiManager.UpdateLives(_lives);
@@ -189,7 +204,7 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(5.0f);
             _isOvershieldActive = false;
-            Destroy(transform.GetChild(0).gameObject);
+            Destroy(transform.GetChild(3).gameObject);
         }
     }
 

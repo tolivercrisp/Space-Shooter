@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
 
     }
     public void StartSpawning()
@@ -42,25 +42,26 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnEnemyRoutine()
     {
-        
+        yield return new WaitForSeconds(1.0f);
         while (_stopSpawning == false)
         {
             Vector3 positionToSpawn = new Vector3(Random.Range(-12.0f, 12.0f), 20.0f, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, positionToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(1.0f);
         }
     }
 
     // Spawn a random Powerup
     IEnumerator SpawnPowerupRoutine()
     {
-        while(_stopSpawning == false)
+        yield return new WaitForSeconds(1.0f);
+        while (_stopSpawning == false)
         {
             Vector3 positionToSpawn = new Vector3(Random.Range(-12.0f, 12.0f), 13.0f, 0);
             int randomPowerup = Random.Range(0, 3);
             Instantiate(_powerupsArray[randomPowerup], positionToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(12, 16));
+            yield return new WaitForSeconds(Random.Range(5, 10));
 
         }
     }

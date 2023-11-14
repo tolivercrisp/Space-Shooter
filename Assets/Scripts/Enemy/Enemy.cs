@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // new package to include to access unity Text object;
 
 public class Enemy : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _speed = Random.Range(7.0f, 11.0f);
+        _speed = Random.Range(8.0f, 10.0f);
         transform.position = new Vector3(Random.Range(-13.0f, 13.0f), Random.Range(12.0f, 15.0f), 0);
 
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -52,7 +53,7 @@ public class Enemy : MonoBehaviour
         } 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
@@ -63,7 +64,7 @@ public class Enemy : MonoBehaviour
                 player.Damage();
             }
             _anim.SetTrigger("OnEnemyDeath");
-            _speed = 0;
+            DestroyChildren();
             Destroy(this.gameObject, 1.2f);
         }
 
@@ -76,12 +77,22 @@ public class Enemy : MonoBehaviour
                 _player.AddScore(10000);
             }
             GetComponent<BoxCollider2D>().enabled = false;
-            _anim.SetTrigger("OnEnemyDeath");
+            DestroyChildren();
             Destroy(this.gameObject, 1.2f);
-
+            
         }
+    }
 
-        
+    public void DestroyChildren()
+    {
+        // Destroy the thrusters too
+        _anim.SetTrigger("OnEnemyDeath");
+        int nbChildren = this.transform.childCount;
+
+        for (int i = nbChildren - 1; i >= 0; i--)
+        {
+            Destroy(this.transform.GetChild(i).gameObject);
+        }
     }
 
 
