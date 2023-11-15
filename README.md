@@ -1,5 +1,5 @@
 # Space-Shooter
-My new Unity game that brings the fun of 1978's "Space Invaders" into 2023.
+My new Unity game brings 1978's "Space Invaders" into 2023.
 
 ## Current build. Getting closer to releasing on Steam!
 ![space_shooter_V1_screenshot](https://github.com/tolivercrisp/Space-Shooter/assets/92277632/cf0c3e35-01c5-4785-8e82-a10efa363fcb)
